@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecreateCode ADMIN</title>
+    <link rel="stylesheet" href="Style_Admin_Oficial.css">
+    <link rel="icon" href="logo.png">
+</head>
+<body>
+
+<!-- Menú lateral -->
+<div class="sidebar">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h3>RecreateCode ADMIN</h3>
+    <a href="#" onclick="mostrarSeccion('gestionUsuarios')">Gestión de Usuarios</a>
+    <a href="#" onclick="mostrarSeccion('certificados')">Certificados</a>
+    <a href="#" onclick="mostrarSeccion('bandejaEntrada')">Bandeja de entrada</a>
+    <a href="#" onclick="mostrarSeccion('mensajeria')">Mensajería</a>
+    <a href="#" onclick="mostrarSeccion('rutas')">Rutas</a>
+    <a href="#" onclick="mostrarSeccion('cursos')">Cursos</a>
+    <a href="#" onclick="mostrarSeccion('solicitudesBeca')">Bandeja de solicitud de becas</a>
+    <a href="#" onclick="mostrarSeccion('dashboard')">Dashboard</a>
+</div>
+
+<!-- Contenido principal -->
+<div class="main-content">
+  
+<!-- Bandeja de Solicitudes de Beca -->
+<div id="solicitudesBeca" class="seccion">
+  <h2>Bandeja de Solicitudes de Beca</h2>
+  <table id="becaTable" class="beca-table">
+      <thead>
+          <tr>
+              <th></th>
+              <th>Nombre</th>
+              <th>Motivo de la Solicitud</th>
+              <th>Fecha</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr onclick="detallesBeca('Juan Pérez', 'Necesito la beca para continuar mis estudios en ingeniería.', 'Aprobada')">
+              <td><input type="checkbox"></td>
+              <td>Juan Pérez</td>
+              <td>Necesito la beca para continuar mis estudios en ingeniería.</td>
+              <td>15 oct</td>
+          </tr>
+          <tr onclick="detallesBeca('Ana Martínez', 'Solicito la beca para especializarme en desarrollo de software.', 'Denegada')">
+              <td><input type="checkbox"></td>
+              <td>Ana Martínez</td>
+              <td>Solicito la beca para especializarme en desarrollo de software.</td>
+              <td>14 oct</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+<!-- Detalle de la Solicitud de Beca -->
+<div id="detalleBeca" class="seccion" style="display: none;">
+  <h2>Detalles de la Solicitud de Beca</h2>
+  <p><strong>Nombre del solicitante:</strong> <span id="becaNombre"></span></p>
+  <p><strong>Motivo de la solicitud:</strong> <span id="becaMotivo"></span></p>
+  <p><strong>Estado de la beca:</strong> <span id="becaEstado"></span></p>
+  <button onclick="mostrarSeccion('solicitudesBeca')">Volver a la bandeja de solicitudes</button>
+</div>
+
+
+<!-- Mensajería-->
+  <div id="mensajeria" class="seccion">
+    <h2>Mensajería</h2>
+    <table id="mensajeTable" class="mensaje-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Destinatario</th>
+                <th>Asunto</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr onclick="responderMensaje('Alumno - Abella Díaz', 'Inoperatividad de la página', 'Disculpe, ¿en cuánto tiempo la página volvería a funcionar correctamente')">
+                <td><input type="checkbox"></td>
+                <td>Abella Díaz</td>
+                <td>Inoperatividad de la página</td>
+                <td>13 oct</td>
+            </tr>
+            <tr onclick="responderMensaje('Docente - Gaviria Vélez', 'Inactividad','No podré seguir con las clases por motivos familiares de fuerza mayor')">
+                <td><input type="checkbox"></td>
+                <td>Gaviria Vélez</td>
+                <td>Inactividad</td>
+                <td>12 oct</td>
+            </tr>
+            <tr onclick="responderMensaje('Alumno - Campos Robles', 'Pago pendiente','Una consulta, ¿Si ya realicé el pago a cuántos días podré tomar los cursos?')">
+              <td><input type="checkbox"></td>
+              <td>Campos Robles</td>
+              <td>Pago pendiente</td>
+              <td>11 oct</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Detalle de Mensajería y Responder -->
+<div id="mensajeDetalle" class="seccion" style="display: none;">
+    <h2>Responder Mensaje</h2>
+    <p><strong>Destinatario:</strong> <span id="mensajeDestinatario"></span></p>
+    <p><strong>Asunto:</strong> <span id="mensajeAsunto"></span></p>
+    <p><strong>Mensaje recibido:</strong></p>
+    <p id="mensajeRecibido"></p>
+    <hr>
+    <h3>Respuesta:</h3>
+    <textarea id="mensajeRespuesta" rows="5" cols="50" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <br><br>
+    <button onclick="enviarRespuesta()">Enviar Respuesta</button>
+    <button onclick="mostrarSeccion('mensajeria')">Volver a la mensajería</button>
+</div>
+  
+ <!-- Bandeja de correo -->
+ <div id="bandejaEntrada" class="seccion activo">
+  <h2>Bandeja de Entrada</h2>
+  <table id="emailTable" class="email-table">
+      <thead>
+          <tr>
+              <th></th>
+              <th>Remitente</th>
+              <th>Asunto</th>
+              <th>Fecha</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr onclick="openEmail('Alumno - Abella Diaz', 'Inoperatividad de la página','Disculpe, ¿en cuánto tiempo la página volvería a funcionar correctamente?')">
+              <td><input type="checkbox"></td>
+              <td>Abella Diaz</td>
+              <td>Inoperatividad de la página</td>
+              <td>13 oct</td>
+          </tr>
+          <tr onclick="openEmail('Docente - Gaviria Vélez', 'Inactividad','No podré seguir con las clases por motivos familiares de fuerza mayor')">
+              <td><input type="checkbox"></td>
+              <td>Gaviria Vélez</td>
+              <td>Inactividad</td>
+              <td>12 oct</td>
+          </tr>
+          <tr onclick="openEmail('Alumno - Campos Robles', 'Pago pendiente','Una consulta, ¿Si ya realicé el pago a cuántos días podré tomar los cursos?')">
+              <td><input type="checkbox"></td>
+              <td>Campos Robles</td>
+              <td>Pago pendiente</td>
+              <td>11 oct</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+<!-- Detalle del correo -->
+<div id="emailDetail" class="seccion">
+  <h2>Detalle del Correo</h2>
+  <p><strong>Remitente:</strong> <span id="emailSender"></span></p>
+  <p><strong>Asunto:</strong> <span id="emailSubject"></span></p>
+  <p><strong>Mensaje:</strong></p>
+  <p id="emailMessage"></p>
+  <button onclick="mostrarSeccion('bandejaEntrada')">Volver a la bandeja de entrada</button>
+</div>
+
+
+    <div id="certificados" class="seccion">
+        <h1>Información</h1>
+        <p>Información del certficado...</p>
+    </div>
+
+
+<!-- Gestión de Usuarios-->
+    <div id="gestionUsuarios" class="seccion">
+        <h1>Gestión de usuarios</h1>
+        <div class="filter-bar">
+            <input type="text" id="usuarioSearch" placeholder="Buscar Usuario">
+            <select id="TipoFilter">
+                <option value="Todos">Por Tipo</option>
+                <option value="Docente">Docente</option>
+                <option value="Alumno">Alumno</option>
+            </select>
+            <select id="PlanFilter">
+                <option value="Todos">Por Plan</option>
+                <option value="Básico">Básico</option>
+                <option value="Avanzado dup">Avanzado dup</option>
+                <option value="Expert Grupo">Expert Grupo</option>
+            </select>
+            <select id="EstadoFilter">
+                <option value="Todos">Por Estado Beca</option>
+                <option value="Aprobada">Aprobada</option>
+                <option value="Denegada">Denegada</option>
+            </select>
+            <select id="TipoBecaFilter">
+              <option value="Todos">Por Tipo Beca</option>
+              <option value="Mediaa">Media</option>
+              <option value="Completa">Completa</option>
+              <option value="Ninguno">Ninguno</option>
+          </select>
+        </div>
+        
+        <table id="tablaUsuarios">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Tipo</th>
+                    <th>Plan</th>
+                    <th>Estado Beca</th>
+                    <th>Tipo Beca</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="mostrarDetalles(this)">
+                    <td>Abella Díaz, Alberto</td>
+                    <td>Docente</td>
+                    <td>Expert Grupo</td>
+                    <td>Denegada</td>
+                    <td>Ninguno</td>
+                </tr>
+                <tr onclick="mostrarDetalles(this)">
+                    <td>Gaviria Vélez, Antonio</td>
+                    <td>Alumno</td>
+                    <td>Básico</td>
+                    <td>Aprobada</td>
+                    <td>Completa</td>
+                </tr>
+                <tr onclick="mostrarDetalles(this)">
+                  <td>Campos Robles, Sara</td>
+                  <td>Alumno</td>
+                  <td>Avanzado dup</td>
+                  <td>Aprobada</td>
+                  <td>Media</td>
+              </tr>
+                <!-- Más usuarios -->
+            </tbody>
+        </table>
+        <div id="detallesUsuario" class="detalles">
+            <h2>Detalles del Usuario</h2>
+            <p>Selecciona un usuario de la tabla para ver los detalles.</p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="seccion">
+      <h2>Dashboard</h2>
+      <div class="dashboard-container">
+          <!-- Estadísticas de ventas -->
+          <div class="stat-card">
+              <h3>Ingreso Diario</h3>
+              <p>$3,024</p>
+              <small>Últimas 24h</small>
+              <div class="progress-circle" data-percentage="80"></div>
+              <small>80%</small>
+          </div>
+          <div class="stat-card">
+              <h3>Ganancia Semanal</h3>
+              <p>$25,024</p>
+              <small>La última semana</small>
+              <div class="progress-circle" data-percentage="80"></div>
+              <small>80%</small>
+          </div>
+          <div class="stat-card">
+              <h3>Ganancia Mensual</h3>
+              <p>$150,024</p>
+              <small>El último mes</small>
+              <div class="progress-circle" data-percentage="80"></div>
+              <small>80%</small>
+          </div>
+          <div class="stat-card">
+            <h3>Ganancia Semestral</h3>
+            <p>$900,024</p>
+            <small>Los últimos 6 meses</small>
+            <div class="progress-circle" data-percentage="80"></div>
+            <small>80%</small>
+        </div>
+        <div class="stat-card">
+          <h3>Ganancia Anual</h3>
+          <p>$25,024</p>
+          <small>El último año</small>
+          <div class="progress-circle" data-percentage="80"></div>
+          <small>80%</small>
+      </div>
+      </div>
+
+      <!-- Órdenes recientes -->
+      <h3>Análisis</h3>
+      <table id="ordersTable" class="orders-table">
+          <thead>
+              <tr>
+                  <th>Cuentas creadas</th>
+                  <th>Docentes registrados</th>
+                  <th>Cuentas con suscripción anual</th>
+                  <th>Cuentas que tienen beca</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>4563</td>
+                  <td>350</td>
+                  <td>3200</td>
+                  <td>1363</td>
+              </tr>
+          </tbody>
+      </table>
+      <button>Show All</button>
+  </div>
+
+</div>
+
+<script src="Script_Admin_Oficial.js"></script>
+</body>
+</html>
